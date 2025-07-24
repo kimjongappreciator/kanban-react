@@ -10,9 +10,7 @@ interface DeleteTaskDialogProps {
 
 function AddTaskDialog({ open, onOpenChange, columnId }: DeleteTaskDialogProps) {
   const { addTask } = useKanbanStore();
-  const [taskTitle, setTaskTitle] = useState("");
-
-  //const generateId = () => crypto.randomUUID();
+  const [taskTitle, setTaskTitle] = useState("");  
 
   const handleAddTask = () => {
     if (taskTitle.trim()) {

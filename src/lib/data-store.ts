@@ -37,17 +37,15 @@ interface KanbanStore {
 }
 
 export const useKanbanStore = create<KanbanStore>((set, get) => ({
-  // Estado inicial
+  
   board: initialBoard,
   activeTask: null,
-
-  // Inicializar board desde fuera
+  
   initializeBoard: (initialData) => set({ board: initialData }),
 
   // Manejar drag overlay
   setActiveTask: (task) => set({ activeTask: task }),
-
-  // Agregar nueva tarea
+  
   addTask: (columnId, title) => set((state) => ({
     board: state.board.map(col => 
       col.id === columnId
@@ -64,8 +62,7 @@ export const useKanbanStore = create<KanbanStore>((set, get) => ({
         : col
     )
   })),
-
-  // Eliminar tarea
+  
   deleteTask: (taskId) => set((state) => ({
     board: state.board.map(col => ({
       ...col,
@@ -77,14 +74,14 @@ export const useKanbanStore = create<KanbanStore>((set, get) => ({
   moveTask: (activeId, overId, isOverTask) => set((state) => {
     const { board } = state;
 
-    // Encontrar columna origen
+    
     const sourceColumn = board.find((col) =>
       col.tasks.some((task) => task.id === activeId)
     );
     
     if (!sourceColumn) return state;
 
-    // Encontrar columna destino
+    
     let destinationColumn: Column | undefined;
 
     for (const col of board) {
@@ -145,8 +142,7 @@ export const useKanbanStore = create<KanbanStore>((set, get) => ({
       })
     };
   }),
-
-  // Agregar nueva columna
+  
   addColumn: (title) => set((state) => ({
     board: [
       ...state.board,
@@ -157,8 +153,7 @@ export const useKanbanStore = create<KanbanStore>((set, get) => ({
       }
     ]
   })),
-
-  // Eliminar columna
+  
   deleteColumn: (columnId) => set((state) => ({
     board: state.board.filter(col => col.id !== columnId)
   })),

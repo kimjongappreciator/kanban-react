@@ -31,7 +31,7 @@ function Kanban({ initialData }: KanbanProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 8, // 8px de movimiento antes de activar drag
+        distance: 8,
       },
     })
   );
@@ -57,7 +57,7 @@ function Kanban({ initialData }: KanbanProps) {
       col.tasks.some((task) => task.id === over.id)
     );
 
-    // Usar la función del store
+    // store en el state manager
     moveTask(active.id as string, over.id as string, isOverTask);
     setActiveTask(null);
   }

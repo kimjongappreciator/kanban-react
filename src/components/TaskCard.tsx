@@ -31,13 +31,12 @@ export function TaskCard({ task }: { task: Task }) {
         >
           <CardHeader className="py-2 flex items-center justify-between">
             <CardTitle className="text-sm">{task.title}</CardTitle>
-            <div className="flex items-center gap-2">
-              {/* Botón u otras acciones */}
+            <div className="flex items-center gap-2">              
               <CircleX
                 className="h-4 w-4 cursor-pointer text-muted-foreground"
                 onClick={()=>setOpen(true)}
               />
-              {/* Área de arrastre (handle) */}
+              { /*handlebar*/}
               <div {...listeners} {...attributes} className="cursor-grab">
                 <GripVertical className="h-4 w-4 text-muted-foreground" />
               </div>

@@ -1,10 +1,7 @@
-//import { useState } from "react";
-//import { Button } from "@/components/ui/button";
 
 import Kanban from "./kanban";
 
-function Home() {
-  //const [count, setCount] = useState(0);
+function Home() {  
   return (
     <>
       <div className="text-center">
