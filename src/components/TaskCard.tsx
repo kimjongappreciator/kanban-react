@@ -1,0 +1,47 @@
+// components/TaskCard.tsx
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities"; // opcional pero cómodo para el transform
+import { cn } from "@/lib/utils"; // si tienes la utilidad cn de shadcn
+import { CircleX, GripVertical } from "lucide-react";
+
+type Task = { id: string; title: string };
+
+export function TaskCard({ task }: { task: Task }) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: task.id,
+  });
+
+  const style = {
+    transform: CSS.Translate.toString(transform), // convierte el transform a string CSS
+  };
+
+   return (
+    <div ref={setNodeRef} style={style}>
+      <Card
+        className={cn(
+          "mb-2 select-none border shadow-sm transition",
+          isDragging && "opacity-70 ring-2 ring-primary"
+        )}
+      >
+        <CardHeader className="py-2 flex items-center justify-between">
+          <CardTitle className="text-sm">{task.title}</CardTitle>
+          <div className="flex items-center gap-2">
+            {/* Botón u otras acciones */}
+            <CircleX
+              className="h-4 w-4 cursor-pointer text-muted-foreground"
+              onClick={() => console.log("Eliminar tarea")}
+            />
+            {/* Área de arrastre (handle) */}
+            <div {...listeners} {...attributes} className="cursor-grab">
+              <GripVertical className="h-4 w-4 text-muted-foreground" />
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="py-2 text-xs text-muted-foreground">
+          (Descripción corta opcional)
+        </CardContent>
+      </Card>
+    </div>
+  );
+} export default TaskCard;
