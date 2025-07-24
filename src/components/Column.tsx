@@ -14,12 +14,17 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { useState } from "react";
+import AddTaskDialog from "./AddTaskDialog";
+
 
 function ColumnComponent({ column }: { column: Column }) {
   const { setNodeRef, isOver } = useDroppable({ id: column.id });
   const taskIds = column.tasks.map((task) => task.id);
+  const [open, setOpen] = useState(false);
 
   return (
+    <>
     <Card
       ref={setNodeRef}
       className={cn(
@@ -40,11 +45,13 @@ function ColumnComponent({ column }: { column: Column }) {
       </CardContent>
 
       <CardFooter>
-        <Button size="sm" className="w-full">
+        <Button size="sm" className="w-full" onClick={() => setOpen(true)}>
           Añadir tarea
         </Button>
       </CardFooter>
     </Card>
+    <AddTaskDialog open={open} onOpenChange={setOpen} columnId={column.id}/>
+    </>
   );
 }
 export default ColumnComponent;
