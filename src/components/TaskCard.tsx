@@ -1,14 +1,14 @@
 // components/TaskCard.tsx
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useDraggable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities"; // opcional pero cómodo para el transform
-import { cn } from "@/lib/utils"; // si tienes la utilidad cn de shadcn
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CSS } from "@dnd-kit/utilities"; 
+import { cn } from "@/lib/utils";
 import { CircleX, GripVertical } from "lucide-react";
+import { useSortable } from "@dnd-kit/sortable";
 
 type Task = { id: string; title: string };
 
 export function TaskCard({ task }: { task: Task }) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({
     id: task.id,
   });
 
