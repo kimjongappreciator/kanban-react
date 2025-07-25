@@ -33,7 +33,7 @@ export function TaskCard({ task }: { task: Task }) {
             <CardTitle className="text-sm">{task.title}</CardTitle>
             <div className="flex items-center gap-2">              
               <CircleX
-                className="h-4 w-4 cursor-pointer text-muted-foreground"
+                className="h-4 w-4 cursor-pointer text-muted-foreground hover:text-destructive"
                 onClick={()=>setOpen(true)}
               />
               { /*handlebar*/}
@@ -43,7 +43,7 @@ export function TaskCard({ task }: { task: Task }) {
             </div>
           </CardHeader>
           <CardContent className="py-2 text-xs text-muted-foreground">
-            (Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.)
+            (Lorem ipsum dolor sit amet, consectetur adipiscing elit.)
           </CardContent>
         </Card>
       </div>
