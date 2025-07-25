@@ -3,66 +3,67 @@ import { arrayMove } from "@dnd-kit/sortable";
 import type { Column } from "@/types/Column";
 
 const initialBoard: Column[] = [{
-    id: "todo",
-    title: "To Do",
-    tasks: [
-        { id: "1", title: "Estudiar React" },
-        { id: "2", title: "Aprender TypeScript" },
-        { id: "3", title: "Configurar ESLint" },
-    ],
+  id: "todo",
+  title: "To Do",
+  tasks: [
+    { id: "1", title: "Viajar al pasado y estudiar otra carrera" },
+    { id: "2", title: "Unificar la mecánica cuántica y la relatividad general" },
+  ],
 }, {
-    id: "doing",
-    title: "En progreso",
-    tasks: [
-        { id: "4", title: "Cambiar estilos" },
-        { id: "5", title: "Implementar drag & drop" },
-    ],
+  id: "doing",
+  title: "En progreso",
+  tasks: [
+    { id: "3", title: "Infiltrarme en la guarida Illuminati" },
+    { id: "4", title: "Encriptar sentimientos en formato .zip" }
+  ],
 }, {
-    id: "done",
-    title: "Hecho",
-    tasks: [{ id: "6", title: "Conquistar el mundo" }],
+  id: "done",
+  title: "Hecho",
+  tasks: [
+    { id: "5", title: "Resolver si el color que veo como rojo es el mismo que ves tú." },
+    { id: "6", title: "Conquistar el mundo" }],
 }];
 
-interface KanbanStore {
-    board: Column[];
-    activeTask: any;
+interface KanbanStore {  
+  board: Column[];
+  activeTask: any;
 
-    initializeBoard: (initialData: Column[]) => void;
-    setActiveTask: (task: any) => void;
-    addTask: (columnId: string, title: string) => void;
-    deleteTask: (taskId: string) => void;
-    moveTask: (activeId: string, overId: string, isOverTask: boolean) => void;
-    addColumn: (title: string) => void;
-    deleteColumn: (columnId: string) => void;
+  initializeBoard: (initialData: Column[]) => void;
+  setActiveTask: (task: any) => void;
+  addTask: (columnId: string, title: string) => void;
+  deleteTask: (taskId: string) => void;
+  moveTask: (activeId: string, overId: string, isOverTask: boolean) => void;
+  addColumn: (title: string) => void;
+  deleteColumn: (columnId: string) => void;
 }
 
 export const useKanbanStore = create<KanbanStore>((set, get) => ({
-  
-  board: initialBoard,
+
+  board:  initialBoard,
   activeTask: null,
-  
+
   initializeBoard: (initialData) => set({ board: initialData }),
 
   // Manejar drag overlay
   setActiveTask: (task) => set({ activeTask: task }),
-  
+
   addTask: (columnId, title) => set((state) => ({
-    board: state.board.map(col => 
+    board: state.board.map(col =>
       col.id === columnId
-        ? { 
-            ...col, 
-            tasks: [
-              ...col.tasks, 
-              { 
-                id: crypto.randomUUID(), 
-                title: title.trim() 
-              }
-            ]
-          }
+        ? {
+          ...col,
+          tasks: [
+            ...col.tasks,
+            {
+              id: crypto.randomUUID(),
+              title: title.trim()
+            }
+          ]
+        }
         : col
     )
   })),
-  
+
   deleteTask: (taskId) => set((state) => ({
     board: state.board.map(col => ({
       ...col,
@@ -74,14 +75,14 @@ export const useKanbanStore = create<KanbanStore>((set, get) => ({
   moveTask: (activeId, overId, isOverTask) => set((state) => {
     const { board } = state;
 
-    
+
     const sourceColumn = board.find((col) =>
       col.tasks.some((task) => task.id === activeId)
     );
-    
+
     if (!sourceColumn) return state;
 
-    
+
     let destinationColumn: Column | undefined;
 
     for (const col of board) {
@@ -142,7 +143,7 @@ export const useKanbanStore = create<KanbanStore>((set, get) => ({
       })
     };
   }),
-  
+
   addColumn: (title) => set((state) => ({
     board: [
       ...state.board,
@@ -153,8 +154,13 @@ export const useKanbanStore = create<KanbanStore>((set, get) => ({
       }
     ]
   })),
-  
+
   deleteColumn: (columnId) => set((state) => ({
     board: state.board.filter(col => col.id !== columnId)
   })),
+
+  saveBoard: () => {
+    const boardData = get().board;
+    localStorage.setItem("kanban-board", JSON.stringify(boardData));
+  }
 }));
