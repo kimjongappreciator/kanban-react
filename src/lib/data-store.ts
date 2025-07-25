@@ -21,7 +21,7 @@ interface KanbanStore {
 
 export const useKanbanStore = create<KanbanStore>()(
   persist(
-    (set, get) => ({
+    (set, _get) => ({
 
       board: initialBoard,
       activeTask: null,
