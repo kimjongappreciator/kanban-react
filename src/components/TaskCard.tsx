@@ -43,7 +43,7 @@ export function TaskCard({ task }: { task: Task }) {
             </div>
           </CardHeader>
           <CardContent className="py-2 text-xs text-muted-foreground">
-            (Descripción corta opcional)
+            (Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.)
           </CardContent>
         </Card>
       </div>
