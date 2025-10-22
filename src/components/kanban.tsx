@@ -63,7 +63,8 @@ function Kanban({ initialData }: KanbanProps) {
   }
 
   return (
-    <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
+    <div className="w-full flex flex-col md:flex-row p-4 overflow-x-auto justify-center gap-4">
+
       <DndContext
         onDragEnd={handleDragEnd}
         onDragStart={handleDragStart}
